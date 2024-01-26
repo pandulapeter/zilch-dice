@@ -5,4 +5,5 @@ plugins {
 
 dependencies {
     api(compose.desktop.currentOs)
+    implementation(project(":shared:presentation:resources:api"))
 }
