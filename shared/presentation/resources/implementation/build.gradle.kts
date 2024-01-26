@@ -34,6 +34,10 @@ kotlin {
 }
 
 android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     namespace = "com.pandulapeter.zilchDice.shared.presentation.resources.implementation"
     val targetSdkVersion = System.getProperty("TARGET_SDK_VERSION").toInt()
     compileSdk = targetSdkVersion

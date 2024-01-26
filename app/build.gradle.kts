@@ -29,10 +29,13 @@ kotlin {
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(libs.koin.core)
-            implementation(project(":feature-main-menu:presentation",))
+            implementation(project(":feature-main-menu:presentation"))
+            implementation(project(":feature-game:presentation"))
             implementation(project(":shared:presentation:catalog"))
             implementation(project(":shared:presentation:resources:implementation"))
+            implementation(project(":shared:presentation:navigator"))
             implementation(project(":utilities:logger"))
+            implementation(project(":utilities:extensions"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -56,6 +59,10 @@ android {
         targetSdk = targetSdkVersion
         versionCode = System.getProperty("VERSION_CODE").toInt()
         versionName = versionNameString
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     val internalSigningConfig = "internal"
     val releaseSigningConfig = "release"

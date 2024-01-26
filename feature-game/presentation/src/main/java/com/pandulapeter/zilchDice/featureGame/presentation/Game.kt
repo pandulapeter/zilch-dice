@@ -1,4 +1,4 @@
-package com.pandulapeter.zilchDice.featureMainMenu.presentation
+package com.pandulapeter.zilchDice.featureGame.presentation
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
@@ -21,13 +21,13 @@ import com.pandulapeter.zilchDice.utilities.extensions.inject
 import com.pandulapeter.zilchDice.utilities.logger.Logger
 
 @Composable
-fun MainMenu(
+fun Game(
     resourceProvider: ResourceProvider = inject(),
     navigator: Navigator = inject(),
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(Unit) {
-        Logger.log("Main menu initialized.")
+        Logger.log("Game initialized.")
     }
 
     Box(
@@ -44,11 +44,11 @@ fun MainMenu(
             )
             Button(
                 onClick = {
-                    navigator.setDestination(NavigationDestination.Game)
-                    Logger.log("'Start Game' button clicked.")
+                    navigator.setDestination(NavigationDestination.MainMenu)
+                    Logger.log("'Return to Main Menu' button clicked.")
                 }
             ) {
-                Text(resourceProvider.strings.menuStartGame)
+                Text(resourceProvider.strings.gameReturnToMainMenu)
             }
         }
     }
@@ -56,4 +56,4 @@ fun MainMenu(
 
 @Preview
 @Composable
-private fun preview() = MainMenu()
+private fun preview() = Game()

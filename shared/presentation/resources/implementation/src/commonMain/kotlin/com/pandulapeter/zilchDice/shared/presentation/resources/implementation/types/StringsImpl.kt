@@ -17,6 +17,9 @@ internal class StringsImpl(
     // Menu
     override val menuStartGame = MR.strings.menu_start_game.resolve()
 
+    // Game
+    override val gameReturnToMainMenu = MR.strings.game_return_to_main_menu.resolve()
+
     interface StringResolver {
 
         fun resolve(reference: ResourceStringDesc): String

@@ -9,6 +9,7 @@ google-material = "1.11.0" # https://github.com/material-components/material-com
 gradle = "8.2.2" # https://developer.android.com/studio/releases/gradle-plugin
 koin = "3.5.3" # https://github.com/InsertKoinIO/koin/tags
 kotlin = "1.9.21" # https://kotlinlang.org/docs/releases.html#release-details
+kotlin-coroutines = "1.7.3" # https://github.com/Kotlin/kotlinx.coroutines/releases
 moko = "0.23.0" # https://github.com/icerockdev/moko-resources/releases
 
 [libraries]
@@ -23,6 +24,7 @@ compose-material = { module = "androidx.compose.material:material", version.ref 
 google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
 moko = { module = "dev.icerock.moko:resources-compose", version.ref = "moko" }
 moko-generator = { module = "dev.icerock.moko:resources-generator", version.ref = "moko" }
 

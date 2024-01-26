@@ -7,4 +7,7 @@ interface Strings {
 
     // Menu
     val menuStartGame: String
+
+    // Game
+    val gameReturnToMainMenu: String
 }

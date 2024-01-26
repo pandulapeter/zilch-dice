@@ -8,7 +8,8 @@ internal object ServiceLocator {
 
     private val zilchDiceModules by lazy {
         listOf(
-            sharedPresentationResourcesModule
+            sharedPresentationResourcesModule,
+            appModule
         )
     }
 

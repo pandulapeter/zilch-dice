@@ -3,4 +3,7 @@
     <!-- Menu -->
     <string name="menu_start_game">Játék indítása</string>
 
+    <!-- Game -->
+    <string name="game_return_to_main_menu">Visszatérés a főmenübe</string>
+
 </resources>

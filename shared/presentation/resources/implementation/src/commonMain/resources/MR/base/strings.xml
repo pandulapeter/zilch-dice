@@ -4,6 +4,9 @@
     <string name="zilch_dice">Zilch Dice</string>
 
     <!-- Menu -->
-    <string name="menu_start_game">Start game</string>
+    <string name="menu_start_game">Start Game</string>
+
+    <!-- Game -->
+    <string name="game_return_to_main_menu">Return to Main Menu</string>
 
 </resources>

@@ -3,10 +3,13 @@
 include(
     ":app",
     ":feature-main-menu:presentation",
+    ":feature-game:presentation",
     ":shared:presentation:catalog",
     ":shared:presentation:debug-menu-android",
+    ":shared:presentation:navigator",
     ":shared:presentation:resources:api",
     ":shared:presentation:resources:implementation",
+    ":utilities:extensions",
     ":utilities:logger"
 )
 rootProject.name = "ZilchDice"
