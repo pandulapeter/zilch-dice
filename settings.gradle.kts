@@ -2,6 +2,7 @@
 
 include(
     ":app",
+    ":feature-main-menu:presentation",
     ":shared:presentation:catalog",
     ":shared:presentation:debug-menu-android",
     ":shared:presentation:resources:api",

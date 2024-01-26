@@ -29,6 +29,7 @@ kotlin {
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(libs.koin.core)
+            implementation(project(":feature-main-menu:presentation",))
             implementation(project(":shared:presentation:catalog"))
             implementation(project(":shared:presentation:resources:implementation"))
             implementation(project(":utilities:logger"))
