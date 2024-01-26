@@ -16,6 +16,9 @@ kotlin {
         val desktopMain by getting
         androidMain {
             dependsOn(commonMain.get())
+            dependencies {
+                implementation(libs.koin.android)
+            }
         }
         commonMain.dependencies {
             implementation(compose.runtime)

@@ -1,10 +1,12 @@
 package com.pandulapeter.zilchDice.shared.presentation.resources.api
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.painter.Painter
+import com.pandulapeter.zilchDice.shared.presentation.resources.api.types.Colors
+import com.pandulapeter.zilchDice.shared.presentation.resources.api.types.Painters
+import com.pandulapeter.zilchDice.shared.presentation.resources.api.types.Strings
 
 interface ResourceProvider {
 
-    @Composable
-    fun DicePainter(): Painter
+    val colors: Colors
+    val painters: Painters
+    val strings: Strings
 }

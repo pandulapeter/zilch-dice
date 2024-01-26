@@ -2,6 +2,7 @@ package com.pandulapeter.zilchDice.common
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
@@ -29,18 +30,23 @@ fun App(
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
         val greeting = remember { Greeting().greet() }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = resourceProvider.colors.brand),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Image(
-                painter = resourceProvider.DicePainter(),
+                painter = resourceProvider.painters.dice,
                 contentDescription = null
             )
             Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
+                Text(resourceProvider.strings.menuStartGame)
             }
             AnimatedVisibility(showContent) {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                     Image(
-                        painter = resourceProvider.DicePainter(),
+                        painter = resourceProvider.painters.dice,
                         contentDescription = null
                     )
                     Text("Compose: $greeting")

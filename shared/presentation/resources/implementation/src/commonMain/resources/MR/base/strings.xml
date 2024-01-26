@@ -3,4 +3,7 @@
     <!-- General -->
     <string name="zilch_dice">Zilch Dice</string>
 
+    <!-- Menu -->
+    <string name="menu_start_game">Start game</string>
+
 </resources>
