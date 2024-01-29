@@ -13,4 +13,11 @@ internal class NavigatorImpl : Navigator {
     override fun setDestination(newDestination: NavigationDestination) {
         _currentDestination.value = newDestination
     }
+
+    override fun navigateBack() = if (_currentDestination.value is NavigationDestination.MainMenu) {
+        false
+    } else {
+        _currentDestination.value = NavigationDestination.MainMenu
+        true
+    }
 }

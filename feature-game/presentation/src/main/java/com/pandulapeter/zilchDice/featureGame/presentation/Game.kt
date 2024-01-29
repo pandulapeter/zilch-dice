@@ -14,6 +14,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.pandulapeter.zilchDice.shared.presentation.catalog.ZilchDiceButton
+import com.pandulapeter.zilchDice.shared.presentation.catalog.ZilchDiceText
 import com.pandulapeter.zilchDice.shared.presentation.navigator.NavigationDestination
 import com.pandulapeter.zilchDice.shared.presentation.navigator.Navigator
 import com.pandulapeter.zilchDice.shared.presentation.resources.api.ResourceProvider
@@ -27,7 +29,7 @@ fun Game(
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(Unit) {
-        Logger.log("Game initialized.")
+        Logger.log("Game: Initialized.")
     }
 
     Box(
@@ -38,18 +40,20 @@ fun Game(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            ZilchDiceText(
+                text = resourceProvider.strings.game
+            )
             Image(
                 painter = resourceProvider.painters.dice,
                 contentDescription = null
             )
-            Button(
+            ZilchDiceButton(
+                text = resourceProvider.strings.gameReturnToMainMenu,
                 onClick = {
+                    Logger.log("Game: 'Return to Main Menu' button clicked.")
                     navigator.setDestination(NavigationDestination.MainMenu)
-                    Logger.log("'Return to Main Menu' button clicked.")
                 }
-            ) {
-                Text(resourceProvider.strings.gameReturnToMainMenu)
-            }
+            )
         }
     }
 }

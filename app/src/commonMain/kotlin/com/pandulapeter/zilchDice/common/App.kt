@@ -7,6 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.pandulapeter.zilchDice.featureGame.presentation.Game
 import com.pandulapeter.zilchDice.featureMainMenu.presentation.MainMenu
+import com.pandulapeter.zilchDice.featureSettings.presentation.Settings
 import com.pandulapeter.zilchDice.shared.presentation.catalog.ZilchDiceTheme
 import com.pandulapeter.zilchDice.shared.presentation.navigator.NavigationDestination
 import com.pandulapeter.zilchDice.shared.presentation.navigator.Navigator
@@ -29,10 +30,13 @@ internal fun App(
         resourceProvider = resourceProvider
     ) { paddingValues ->
         when (currentDestination.value) {
+            NavigationDestination.Game -> Game(
+                modifier = modifier.padding(paddingValues)
+            )
             NavigationDestination.MainMenu -> MainMenu(
                 modifier = modifier.padding(paddingValues)
             )
-            NavigationDestination.Game -> Game(
+            NavigationDestination.Settings -> Settings(
                 modifier = modifier.padding(paddingValues)
             )
         }

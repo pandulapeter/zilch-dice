@@ -1,4 +1,4 @@
-package com.pandulapeter.zilchDice.featureMainMenu.presentation
+package com.pandulapeter.zilchDice.featureSettings.presentation
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -23,13 +21,13 @@ import com.pandulapeter.zilchDice.utilities.extensions.inject
 import com.pandulapeter.zilchDice.utilities.logger.Logger
 
 @Composable
-fun MainMenu(
+fun Settings(
     resourceProvider: ResourceProvider = inject(),
     navigator: Navigator = inject(),
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(Unit) {
-        Logger.log("Main menu: Initialized.")
+        Logger.log("Settings: Initialized.")
     }
 
     Box(
@@ -41,24 +39,17 @@ fun MainMenu(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             ZilchDiceText(
-                text = resourceProvider.strings.mainMenu
+                text = resourceProvider.strings.settings
             )
             Image(
                 painter = resourceProvider.painters.dice,
                 contentDescription = null
             )
             ZilchDiceButton(
-                text = resourceProvider.strings.mainMenuStartGame,
+                text = resourceProvider.strings.settingsReturnToMainMenu,
                 onClick = {
-                    Logger.log("Main menu: 'Start Game' button clicked.")
-                    navigator.setDestination(NavigationDestination.Game)
-                }
-            )
-            ZilchDiceButton(
-                text = resourceProvider.strings.mainMenuSettings,
-                onClick = {
-                    Logger.log("Main menu: 'Settings' button clicked.")
-                    navigator.setDestination(NavigationDestination.Settings)
+                    Logger.log("Settings: 'Return to Main Menu' button clicked.")
+                    navigator.setDestination(NavigationDestination.MainMenu)
                 }
             )
         }
@@ -67,4 +58,4 @@ fun MainMenu(
 
 @Preview
 @Composable
-private fun preview() = MainMenu()
+private fun preview() = Settings()

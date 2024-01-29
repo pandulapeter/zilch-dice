@@ -5,9 +5,16 @@ interface Strings {
     // General
     val zilchDice: String
 
-    // Menu
-    val menuStartGame: String
-
     // Game
+    val game: String
     val gameReturnToMainMenu: String
+
+    // Main menu
+    val mainMenu: String
+    val mainMenuStartGame: String
+    val mainMenuSettings: String
+
+    // Settings
+    val settings: String
+    val settingsReturnToMainMenu: String
 }

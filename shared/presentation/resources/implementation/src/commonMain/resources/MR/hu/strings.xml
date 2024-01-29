@@ -1,9 +1,16 @@
 <resources>
 
-    <!-- Menu -->
-    <string name="menu_start_game">Játék indítása</string>
-
     <!-- Game -->
+    <string name="game">Játék</string>
     <string name="game_return_to_main_menu">Visszatérés a főmenübe</string>
+
+    <!-- Main menu -->
+    <string name="main_menu">Főmenü</string>
+    <string name="main_menu_start_game">Játék indítása</string>
+    <string name="main_menu_settings">Beállítások</string>
+
+    <!-- Settings -->
+    <string name="settings">Beállítások</string>
+    <string name="settings_return_to_main_menu">Visszatérés a főmenübe</string>
 
 </resources>

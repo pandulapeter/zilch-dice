@@ -14,11 +14,18 @@ internal class StringsImpl(
     // General
     override val zilchDice = MR.strings.zilch_dice.resolve()
 
-    // Menu
-    override val menuStartGame = MR.strings.menu_start_game.resolve()
+    // Game
+    override val game = MR.strings.game.resolve()
+    override val gameReturnToMainMenu = MR.strings.game_return_to_main_menu.resolve()
+
+    // Main menu
+    override val mainMenu = MR.strings.main_menu.resolve()
+    override val mainMenuStartGame = MR.strings.main_menu_start_game.resolve()
+    override val mainMenuSettings = MR.strings.main_menu_settings.resolve()
 
     // Game
-    override val gameReturnToMainMenu = MR.strings.game_return_to_main_menu.resolve()
+    override val settings = MR.strings.settings.resolve()
+    override val settingsReturnToMainMenu = MR.strings.settings_return_to_main_menu.resolve()
 
     interface StringResolver {
 

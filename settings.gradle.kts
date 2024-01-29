@@ -2,8 +2,9 @@
 
 include(
     ":app",
-    ":feature-main-menu:presentation",
     ":feature-game:presentation",
+    ":feature-main-menu:presentation",
+    ":feature-settings:presentation",
     ":shared:presentation:catalog",
     ":shared:presentation:debug-menu-android",
     ":shared:presentation:navigator",

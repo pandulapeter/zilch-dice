@@ -8,4 +8,6 @@ interface Navigator {
     val currentDestination: StateFlow<NavigationDestination>
 
     fun setDestination(newDestination: NavigationDestination)
+
+    fun navigateBack() : Boolean
 }
