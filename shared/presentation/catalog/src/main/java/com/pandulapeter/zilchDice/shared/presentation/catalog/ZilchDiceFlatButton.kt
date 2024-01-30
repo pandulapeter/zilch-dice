@@ -1,9 +1,7 @@
 package com.pandulapeter.zilchDice.shared.presentation.catalog
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,8 +10,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.TextButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,18 +52,3 @@ fun ZilchDiceFlatButton(
     },
     onClick = onClick
 )
-
-@Preview
-@Composable
-private fun preview() = Column(
-    modifier = Modifier.padding(8.dp),
-    verticalArrangement = Arrangement.spacedBy(8.dp)
-) {
-    ZilchDiceFlatButton(
-        text = "Flat Button"
-    )
-    ZilchDiceFlatButton(
-        text = "Flat Button",
-        icon = Icons.Default.Settings
-    )
-}

@@ -1,19 +1,18 @@
 package com.pandulapeter.zilchDice.featureGame.presentation
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.pandulapeter.zilchDice.featureGame.presentation.implementation.Dice
+import com.pandulapeter.zilchDice.featureGame.presentation.implementation.DiceState
 import com.pandulapeter.zilchDice.shared.presentation.catalog.ZilchDiceButton
 import com.pandulapeter.zilchDice.shared.presentation.catalog.ZilchDiceText
 import com.pandulapeter.zilchDice.shared.presentation.navigator.NavigationDestination
@@ -28,6 +27,13 @@ fun Game(
     navigator: Navigator = inject(),
     modifier: Modifier = Modifier
 ) {
+    val diceState = mutableStateOf(
+        DiceState(
+            side = DiceState.Side.random(),
+            imageIndex = DiceState.ImageIndex.random()
+        )
+    )
+
     LaunchedEffect(Unit) {
         Logger.log("Game: Initialized.")
     }
@@ -43,9 +49,15 @@ fun Game(
             ZilchDiceText(
                 text = resourceProvider.strings.game
             )
-            Image(
-                painter = resourceProvider.painters.dice,
-                contentDescription = null
+            Dice(
+                diceState = diceState.value,
+                onClick = {
+                    Logger.log("Game: Dice clicked (current side ${diceState.value.side}, current index ${diceState.value.imageIndex}).")
+                    diceState.value = DiceState(
+                        side = DiceState.Side.random(),
+                        imageIndex = DiceState.ImageIndex.random(diceState.value.imageIndex)
+                    )
+                }
             )
             ZilchDiceButton(
                 text = resourceProvider.strings.gameReturnToMainMenu,
@@ -57,7 +69,3 @@ fun Game(
         }
     }
 }
-
-@Preview
-@Composable
-private fun preview() = Game()

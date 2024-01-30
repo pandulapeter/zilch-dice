@@ -1,6 +1,5 @@
 package com.pandulapeter.zilchDice.featureSettings.presentation
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -55,7 +54,3 @@ fun Settings(
         }
     }
 }
-
-@Preview
-@Composable
-private fun preview() = Settings()

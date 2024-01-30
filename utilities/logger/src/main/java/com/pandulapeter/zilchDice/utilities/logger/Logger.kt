@@ -5,6 +5,9 @@ import com.toxicbakery.logging.ISeedling
 
 object Logger {
 
+    private const val TAG = "ZilchDice-logs"
+    private val branch = Arbor.tag(TAG)
+
     enum class Level(val id: String) {
         GENERAL("General"),
         DATA("Data"),
@@ -18,7 +21,7 @@ object Logger {
     fun log(
         message: String,
         level: Level = Level.GENERAL
-    ) = Arbor.d("${level.id}|$message")
+    ) = branch.d("${level.id}|$message")
 
     fun addListener(
         listener: (
@@ -29,7 +32,7 @@ object Logger {
     ) = Arbor.sow(
         object : ISeedling {
 
-            override val tag = "ZilchDice-logs"
+            override val tag = TAG
 
             override fun log(
                 level: Int,
@@ -38,7 +41,7 @@ object Logger {
                 throwable: Throwable?,
                 args: Array<out Any?>?
             ) = msg.split("|").let {
-                listener(it.last(), Level.fromId(it.first()), tag)
+                listener(it.last(), Level.fromId(it.first()), TAG)
             }
         }
     )

@@ -1,8 +1,5 @@
 package com.pandulapeter.zilchDice.shared.presentation.catalog
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -46,16 +43,5 @@ fun ZilchDiceSectionHeader(
     ZilchDiceText(
         isBold = true,
         text = text
-    )
-}
-
-@Preview
-@Composable
-private fun preview() = Column(
-    modifier = Modifier.padding(8.dp),
-    verticalArrangement = Arrangement.spacedBy(8.dp)
-) {
-    ZilchDiceSectionHeader(
-        text = "Section header"
     )
 }
