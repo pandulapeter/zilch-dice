@@ -2,6 +2,7 @@
 
     <!-- Game -->
     <string name="game">Játék</string>
+    <string name="game_roll">Dobás</string>
     <string name="game_return_to_main_menu">Visszatérés a főmenübe</string>
 
     <!-- Main menu -->

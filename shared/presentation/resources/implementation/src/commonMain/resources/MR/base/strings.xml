@@ -5,6 +5,7 @@
 
     <!-- Game -->
     <string name="game">Game</string>
+    <string name="game_roll">Roll</string>
     <string name="game_return_to_main_menu">Return to Main Menu</string>
 
     <!-- Main menu -->

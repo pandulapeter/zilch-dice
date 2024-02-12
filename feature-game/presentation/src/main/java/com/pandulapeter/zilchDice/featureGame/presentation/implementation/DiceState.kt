@@ -32,7 +32,7 @@ internal data class DiceState(
 
         companion object {
 
-            fun random(currentValue: ImageIndex? = null): ImageIndex {
+            fun random(currentValue: ImageIndex?): ImageIndex {
                 var nextValue: ImageIndex
                 do {
                     nextValue = entries.random()

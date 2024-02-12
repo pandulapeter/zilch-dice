@@ -7,6 +7,7 @@ interface Strings {
 
     // Game
     val game: String
+    val gameRoll: String
     val gameReturnToMainMenu: String
 
     // Main menu

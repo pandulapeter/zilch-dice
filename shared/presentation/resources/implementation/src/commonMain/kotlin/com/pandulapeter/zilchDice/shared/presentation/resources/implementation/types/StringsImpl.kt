@@ -16,6 +16,7 @@ internal class StringsImpl(
 
     // Game
     override val game = MR.strings.game.resolve()
+    override val gameRoll = MR.strings.game_roll.resolve()
     override val gameReturnToMainMenu = MR.strings.game_return_to_main_menu.resolve()
 
     // Main menu
