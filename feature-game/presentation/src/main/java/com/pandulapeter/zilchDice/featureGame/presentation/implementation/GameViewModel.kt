@@ -1,9 +1,12 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation
 
 import androidx.compose.runtime.mutableStateOf
+import com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities.RandomGenerator
 import com.pandulapeter.zilchDice.utilities.logger.Logger
 
-internal class GameViewModel {
+internal class GameViewModel(
+    private val randomGenerator: RandomGenerator
+) {
 
     val diceStates = mutableStateOf(
         generateDiceStates(
@@ -19,8 +22,8 @@ internal class GameViewModel {
 
     private fun generateDiceStates(currentState: List<DiceState>?) = (0..4).map { index ->
         DiceState(
-            side = DiceState.Side.random(),
-            imageIndex = DiceState.ImageIndex.random(currentState?.get(index)?.imageIndex)
+            side = randomGenerator.diceSide(),
+            imageIndex = randomGenerator.diceImageIndex(currentState?.get(index)?.imageIndex)
         )
     }.also { diceStates ->
         Logger.log("Game: DiceSides: ${diceStates.joinToString { it.side.name }}")

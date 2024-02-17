@@ -11,11 +11,6 @@ internal data class DiceState(
         FOUR,
         FIVE,
         SIX;
-
-        companion object {
-
-            fun random() = entries.random()
-        }
     }
 
     enum class ImageIndex {
@@ -29,16 +24,5 @@ internal data class DiceState(
         INDEX_7,
         INDEX_8,
         INDEX_9;
-
-        companion object {
-
-            fun random(currentValue: ImageIndex?): ImageIndex {
-                var nextValue: ImageIndex
-                do {
-                    nextValue = entries.random()
-                } while (nextValue == currentValue?.mirror || nextValue == currentValue)
-                return nextValue
-            }
-        }
     }
 }
