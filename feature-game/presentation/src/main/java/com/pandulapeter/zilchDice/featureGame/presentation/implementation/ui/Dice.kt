@@ -9,14 +9,17 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.shrinkOut
+import androidx.compose.animation.slideIn
+import androidx.compose.animation.slideOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.pandulapeter.zilchDice.featureGame.presentation.implementation.DiceState
+import com.pandulapeter.zilchDice.featureGame.data.DiceState
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.painter
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities.RandomGenerator
 import com.pandulapeter.zilchDice.shared.presentation.resources.api.ResourceProvider
@@ -47,23 +50,29 @@ private fun createRollContentTransform(
     val duration = randomGenerator.intBetween(200, 200)
     val delay = randomGenerator.intBetween(10, 100)
     val inAnimation = fadeIn(
-        animationSpec = tween(duration, delayMillis = delay)
+        animationSpec = tween(durationMillis = duration, delayMillis = delay)
     ) + scaleIn(
-        animationSpec = tween(duration, delayMillis = delay),
+        animationSpec = tween(durationMillis = duration * 2),
         initialScale = 0.5f
     ) + expandIn(
-        animationSpec = tween(duration, delayMillis = delay),
+        animationSpec = tween(durationMillis = duration, delayMillis = delay),
         clip = false,
         expandFrom = Alignment.BottomCenter
+    ) + slideIn(
+        animationSpec = tween(durationMillis = duration, delayMillis = delay),
+        initialOffset = { IntOffset(-144, 0) }
     )
     val outAnimation = fadeOut(
-        animationSpec = tween(duration)
+        animationSpec = tween(durationMillis = duration)
     ) + scaleOut(
-        animationSpec = tween(duration, delayMillis = delay)
+        animationSpec = tween(durationMillis = duration / 2)
     ) + shrinkOut(
-        animationSpec = tween(duration, delayMillis = delay),
+        animationSpec = tween(durationMillis = duration),
         clip = false,
         shrinkTowards = Alignment.TopCenter
+    ) + slideOut(
+        animationSpec = tween(durationMillis = duration),
+        targetOffset = { IntOffset(144, 0) }
     )
     return inAnimation togetherWith outAnimation
 }

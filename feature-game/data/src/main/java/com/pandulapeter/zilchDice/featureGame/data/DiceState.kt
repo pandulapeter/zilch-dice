@@ -1,6 +1,6 @@
-package com.pandulapeter.zilchDice.featureGame.presentation.implementation
+package com.pandulapeter.zilchDice.featureGame.data
 
-internal data class DiceState(
+data class DiceState(
     val side: Side,
     val imageIndex: ImageIndex,
 ) {

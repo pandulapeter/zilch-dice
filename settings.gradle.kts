@@ -2,6 +2,7 @@
 
 include(
     ":app",
+    ":feature-game:data",
     ":feature-game:presentation",
     ":feature-main-menu:presentation",
     ":feature-settings:presentation",

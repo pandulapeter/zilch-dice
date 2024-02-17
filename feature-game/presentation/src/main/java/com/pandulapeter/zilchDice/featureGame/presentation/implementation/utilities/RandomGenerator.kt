@@ -1,6 +1,6 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities
 
-import com.pandulapeter.zilchDice.featureGame.presentation.implementation.DiceState
+import com.pandulapeter.zilchDice.featureGame.data.DiceState
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.mirror
 import kotlin.math.roundToInt
 import kotlin.random.Random

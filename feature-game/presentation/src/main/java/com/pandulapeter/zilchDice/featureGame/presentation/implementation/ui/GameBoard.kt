@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.pandulapeter.zilchDice.featureGame.presentation.implementation.DiceState
+import com.pandulapeter.zilchDice.featureGame.data.DiceState
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.GameViewModel
 import com.pandulapeter.zilchDice.shared.presentation.catalog.ZilchDiceButton
 import com.pandulapeter.zilchDice.shared.presentation.resources.api.ResourceProvider

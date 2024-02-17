@@ -1,6 +1,7 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation
 
 import androidx.compose.runtime.Composable
+import com.pandulapeter.zilchDice.featureGame.data.DiceState
 import com.pandulapeter.zilchDice.shared.presentation.resources.api.types.Painters
 
 @Composable

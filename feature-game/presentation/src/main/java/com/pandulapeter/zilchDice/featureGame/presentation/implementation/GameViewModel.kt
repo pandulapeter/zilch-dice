@@ -1,6 +1,7 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation
 
 import androidx.compose.runtime.mutableStateOf
+import com.pandulapeter.zilchDice.featureGame.data.DiceState
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities.RandomGenerator
 import com.pandulapeter.zilchDice.utilities.logger.Logger
 
