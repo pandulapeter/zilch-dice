@@ -47,32 +47,32 @@ internal fun Dice(
 private fun createRollContentTransform(
     randomGenerator: RandomGenerator
 ): ContentTransform {
-    val duration = randomGenerator.intBetween(200, 200)
-    val delay = randomGenerator.intBetween(10, 100)
+    val duration = randomGenerator.intBetween(200, 100)
+    val delay = randomGenerator.intBetween(10, 80)
     val inAnimation = fadeIn(
         animationSpec = tween(durationMillis = duration, delayMillis = delay)
     ) + scaleIn(
         animationSpec = tween(durationMillis = duration * 2),
-        initialScale = 0.5f
+        initialScale = 0f
     ) + expandIn(
-        animationSpec = tween(durationMillis = duration, delayMillis = delay),
+        animationSpec = tween(durationMillis = duration * 2),
         clip = false,
-        expandFrom = Alignment.BottomCenter
+        expandFrom = Alignment.Center
     ) + slideIn(
         animationSpec = tween(durationMillis = duration, delayMillis = delay),
-        initialOffset = { IntOffset(-144, 0) }
+        initialOffset = { IntOffset(-64, 0) }
     )
     val outAnimation = fadeOut(
         animationSpec = tween(durationMillis = duration)
     ) + scaleOut(
         animationSpec = tween(durationMillis = duration / 2)
     ) + shrinkOut(
-        animationSpec = tween(durationMillis = duration),
+        animationSpec = tween(durationMillis = duration / 2),
         clip = false,
-        shrinkTowards = Alignment.TopCenter
+        shrinkTowards = Alignment.Center
     ) + slideOut(
         animationSpec = tween(durationMillis = duration),
-        targetOffset = { IntOffset(144, 0) }
+        targetOffset = { IntOffset(64, 0) }
     )
     return inAnimation togetherWith outAnimation
 }
