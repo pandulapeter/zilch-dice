@@ -1,13 +1,21 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Ease
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -29,20 +37,18 @@ internal fun GameBoard(
 ) = Column(
     modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.spacedBy(8.dp)
+    verticalArrangement = Arrangement.spacedBy(16.dp)
 ) {
     val diceStates = viewModel.diceStates.collectAsState()
+    SavedDiceRow(
+        diceStates = diceStates.value
+    )
     DiceRow(
         diceStates = diceStates.value,
         onDiceSelected = viewModel::onDiceSelected
     )
-    val savedDiceStates = viewModel.savedDiceStates.collectAsState(emptyList())
-    SavedDiceRow(
-        diceStates = savedDiceStates.value
-    )
     val rollValue = viewModel.rollValue.collectAsState(0)
     Text(
-        modifier = Modifier.padding(bottom = 16.dp),
         text = "Roll value: ${rollValue.value}"
     )
     val isRollButtonEnabled = viewModel.isRollButtonEnabled.collectAsState(false)
@@ -79,17 +85,43 @@ private fun DiceRow(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun SavedDiceRow(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxWidth(),
     diceStates: List<DiceState>,
-) = Row(
-    modifier = modifier.defaultMinSize(minHeight = 48.dp),
-    horizontalArrangement = Arrangement.Center
+) = Box(
+    modifier = modifier
+        .fillMaxWidth()
+        .defaultMinSize(minHeight = 48.dp)
 ) {
-    diceStates.filter { it.isSaved }.forEach { diceState ->
-        DiceTop(
-            diceState = diceState
-        )
+    AnimatedVisibility(
+        modifier = Modifier.fillMaxWidth(),
+        visible = diceStates.any { it.isSaved },
+        enter = fadeIn() + scaleIn(),
+        exit = scaleOut() + fadeOut()
+    ) {
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            diceStates
+                .sortedBy { it.side }
+                .forEachIndexed { index, diceState ->
+                    if (diceState.isSaved) {
+                        item(key = index) {
+                            DiceTop(
+                                modifier = Modifier.animateItemPlacement(
+                                    animationSpec = tween(
+                                        durationMillis = 200,
+                                        easing = Ease,
+                                    )
+                                ),
+                                diceState = diceState
+                            )
+                        }
+                    }
+                }
+        }
     }
 }

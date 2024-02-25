@@ -16,11 +16,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import com.pandulapeter.zilchDice.featureGame.data.DiceState
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.painter
@@ -64,7 +66,8 @@ internal fun Dice(
     ) {
         Image(
             imageVector = Icons.Default.Lock,
-            contentDescription = null
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface)
         )
     }
 }

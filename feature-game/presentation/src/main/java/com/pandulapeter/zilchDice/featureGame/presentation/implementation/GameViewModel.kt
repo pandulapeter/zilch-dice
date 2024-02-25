@@ -17,9 +17,6 @@ internal class GameViewModel(
         )
     )
     val diceStates = _diceStates.asStateFlow()
-    val savedDiceStates = diceStates.map { diceStates ->
-        diceStates.filter { it.isSaved }.sortedBy { it.side }
-    }
     val isRollButtonEnabled = _diceStates.map { diceStates ->
         diceStates.any { !it.isSaved }
     }
@@ -36,6 +33,12 @@ internal class GameViewModel(
     fun onRollButtonClicked() {
         _diceStates.value = generateDiceStates(
             currentState = diceStates.value
+        )
+    }
+
+    fun reset() {
+        _diceStates.value = generateDiceStates(
+            currentState = null
         )
     }
 

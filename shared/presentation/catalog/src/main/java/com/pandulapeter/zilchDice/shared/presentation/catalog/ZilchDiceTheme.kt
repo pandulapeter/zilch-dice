@@ -7,6 +7,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import com.pandulapeter.zilchDice.shared.presentation.resources.api.ResourceProvider
 
 @Composable
@@ -15,7 +16,8 @@ fun ZilchDiceTheme(
     content: @Composable (PaddingValues) -> Unit
 ) = MaterialTheme(
     colors = if (isSystemInDarkTheme()) darkColors(
-        primary = resourceProvider.colors.brand
+        primary = resourceProvider.colors.brand,
+        onPrimary = Color.White
     ) else lightColors(
         primary = resourceProvider.colors.brand
     )

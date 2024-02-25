@@ -14,6 +14,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.LocalContentColor
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +34,7 @@ fun ZilchDiceButton(
     shape = CircleShape,
     enabled = !shouldShowLoadingIndicator && isEnabled,
     content = {
-        val color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
+        val color = MaterialTheme.colors.onPrimary
         val iconSize = 24.dp
         Row(
             modifier = Modifier.height(iconSize + 8.dp).padding(4.dp),
@@ -73,6 +74,7 @@ fun ZilchDiceButton(
             }
             ZilchDiceText(
                 text = text,
+                color = color,
                 shouldCenterAlign = true
             )
         }
