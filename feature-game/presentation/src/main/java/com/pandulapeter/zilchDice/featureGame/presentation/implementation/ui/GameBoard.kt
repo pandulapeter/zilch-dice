@@ -4,11 +4,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,22 +28,27 @@ internal fun GameBoard(
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier,
-    horizontalAlignment = Alignment.CenterHorizontally
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(8.dp)
 ) {
+    val diceStates = viewModel.diceStates.collectAsState()
     DiceRow(
-        diceStates = viewModel.diceStates.value,
+        diceStates = diceStates.value,
         onDiceSelected = viewModel::onDiceSelected
     )
-    Spacer(
-        modifier = Modifier.height(16.dp)
+    val savedDiceStates = viewModel.savedDiceStates.collectAsState(emptyList())
+    SavedDiceRow(
+        diceStates = savedDiceStates.value
     )
-    val diceSides = viewModel.diceStates.value.map { it.side }
+    val rollValue = viewModel.rollValue.collectAsState(0)
     Text(
         modifier = Modifier.padding(bottom = 16.dp),
-        text = "Roll value: ${viewModel.countPoints(diceSides)}"
+        text = "Roll value: ${rollValue.value}"
     )
+    val isRollButtonEnabled = viewModel.isRollButtonEnabled.collectAsState(false)
     ZilchDiceButton(
         text = resourceProvider.strings.gameRoll,
+        isEnabled = isRollButtonEnabled.value,
         onClick = {
             Logger.log("Game: 'Roll' button clicked.")
             viewModel.onRollButtonClicked()
@@ -69,5 +76,20 @@ private fun DiceRow(
                 onDiceSelected = onDiceSelected
             )
         }
+    }
+}
+
+@Composable
+private fun SavedDiceRow(
+    modifier: Modifier = Modifier,
+    diceStates: List<DiceState>,
+) = Row(
+    modifier = modifier.defaultMinSize(minHeight = 48.dp),
+    horizontalArrangement = Arrangement.Center
+) {
+    diceStates.filter { it.isSaved }.forEach { diceState ->
+        DiceTop(
+            diceState = diceState
+        )
     }
 }

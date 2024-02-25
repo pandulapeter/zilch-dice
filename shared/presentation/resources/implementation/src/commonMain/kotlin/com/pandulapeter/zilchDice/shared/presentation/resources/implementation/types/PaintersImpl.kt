@@ -60,7 +60,7 @@ internal class PaintersImpl : Painters {
     override val dice_4_8: Painter @Composable get() = painterResource(MR.images.img_dice_4_8)
     override val dice_4_9: Painter @Composable get() = painterResource(MR.images.img_dice_4_9)
     override val dice_4_top: Painter @Composable get() = painterResource(MR.images.img_dice_4_top)
-    override val dice_4_top_perspective: Painter @Composable get() = painterResource(MR.images.img_dice_4_top_perspective)
+    override val dice_4_topPerspective: Painter @Composable get() = painterResource(MR.images.img_dice_4_top_perspective)
 
     override val dice_5_0: Painter @Composable get() = painterResource(MR.images.img_dice_5_0)
     override val dice_5_1: Painter @Composable get() = painterResource(MR.images.img_dice_5_1)

@@ -57,7 +57,7 @@ interface Painters {
     @get:Composable val dice_4_8: Painter
     @get:Composable val dice_4_9: Painter
     @get:Composable val dice_4_top: Painter
-    @get:Composable val dice_4_top_perspective: Painter
+    @get:Composable val dice_4_topPerspective: Painter
 
     @get:Composable val dice_5_0: Painter
     @get:Composable val dice_5_1: Painter

@@ -25,12 +25,13 @@ fun ZilchDiceButton(
     modifier: Modifier = Modifier,
     text: String,
     shouldShowLoadingIndicator: Boolean = false,
+    isEnabled: Boolean = true,
     icon: ImageVector? = null,
     onClick: () -> Unit = {}
 ) = Button(
     modifier = modifier,
     shape = CircleShape,
-    enabled = !shouldShowLoadingIndicator,
+    enabled = !shouldShowLoadingIndicator && isEnabled,
     content = {
         val color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
         val iconSize = 24.dp
@@ -77,7 +78,7 @@ fun ZilchDiceButton(
         }
     },
     onClick = {
-        if (!shouldShowLoadingIndicator) {
+        if (!shouldShowLoadingIndicator && isEnabled) {
             onClick()
         }
     }

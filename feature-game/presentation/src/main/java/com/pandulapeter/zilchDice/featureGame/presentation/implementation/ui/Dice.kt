@@ -12,6 +12,8 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.icons.Icons
@@ -22,6 +24,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import com.pandulapeter.zilchDice.featureGame.data.DiceState
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.painter
+import com.pandulapeter.zilchDice.featureGame.presentation.implementation.topPainter
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities.RandomGenerator
 import com.pandulapeter.zilchDice.shared.presentation.resources.api.ResourceProvider
 import com.pandulapeter.zilchDice.utilities.extensions.inject
@@ -65,6 +68,21 @@ internal fun Dice(
         )
     }
 }
+
+@Composable
+internal fun DiceTop(
+    resourceProvider: ResourceProvider = inject(),
+    modifier: Modifier = Modifier,
+    diceState: DiceState
+) = Image(
+    modifier = modifier
+        .sizeIn(maxWidth = 48.dp)
+        .padding(4.dp),
+    painter = diceState.topPainter(
+        painters = resourceProvider.painters,
+    ),
+    contentDescription = null
+)
 
 private fun createRollContentTransform(
     randomGenerator: RandomGenerator

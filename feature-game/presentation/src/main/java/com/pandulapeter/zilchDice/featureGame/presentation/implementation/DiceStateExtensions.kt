@@ -87,6 +87,18 @@ internal fun DiceState.painter(
     }
 }
 
+@Composable
+internal fun DiceState.topPainter(
+    painters: Painters,
+) = when (side) {
+    DiceState.Side.ONE -> painters.dice_1_top
+    DiceState.Side.TWO -> painters.dice_2_top
+    DiceState.Side.THREE -> painters.dice_3_top
+    DiceState.Side.FOUR -> painters.dice_4_top
+    DiceState.Side.FIVE -> painters.dice_5_top
+    DiceState.Side.SIX -> painters.dice_6_top
+}
+
 internal val DiceState.ImageIndex.mirror
     get() = when (this) {
         DiceState.ImageIndex.INDEX_0 -> DiceState.ImageIndex.INDEX_5

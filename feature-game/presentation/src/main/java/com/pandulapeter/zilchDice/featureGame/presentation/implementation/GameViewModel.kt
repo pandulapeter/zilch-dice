@@ -1,33 +1,45 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation
 
-import androidx.compose.runtime.mutableStateOf
 import com.pandulapeter.zilchDice.featureGame.data.DiceState
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities.RandomGenerator
 import com.pandulapeter.zilchDice.utilities.logger.Logger
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 
 internal class GameViewModel(
     private val randomGenerator: RandomGenerator
 ) {
 
-    val diceStates = mutableStateOf(
+    private val _diceStates = MutableStateFlow(
         generateDiceStates(
             currentState = null
         )
     )
+    val diceStates = _diceStates.asStateFlow()
+    val savedDiceStates = diceStates.map { diceStates ->
+        diceStates.filter { it.isSaved }.sortedBy { it.side }
+    }
+    val isRollButtonEnabled = _diceStates.map { diceStates ->
+        diceStates.any { !it.isSaved }
+    }
+    val rollValue = diceStates.map { diceStates ->
+        countPoints(diceStates.map { dice -> dice.side })
+    }
 
     fun onDiceSelected(diceIndex: Int) {
-        diceStates.value = diceStates.value.mapIndexed { index, diceState ->
+        _diceStates.value = diceStates.value.mapIndexed { index, diceState ->
             if (diceIndex == index) diceState.copy(isSaved = !diceState.isSaved) else diceState
         }
     }
 
     fun onRollButtonClicked() {
-        diceStates.value = generateDiceStates(
+        _diceStates.value = generateDiceStates(
             currentState = diceStates.value
         )
     }
 
-    fun countPoints(diceSides: List<DiceState.Side>) = diceSides.run {
+    private fun countPoints(diceSides: List<DiceState.Side>) = diceSides.run {
         if (diceSides.sorted() == DiceState.Side.entries.sorted()) {
             return@run 2500
         }

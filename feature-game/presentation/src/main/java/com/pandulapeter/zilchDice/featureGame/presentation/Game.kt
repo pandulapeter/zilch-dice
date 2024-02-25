@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.ui.GameBoard
 import com.pandulapeter.zilchDice.shared.presentation.catalog.ZilchDiceButton
-import com.pandulapeter.zilchDice.shared.presentation.catalog.ZilchDiceText
 import com.pandulapeter.zilchDice.shared.presentation.navigator.NavigationDestination
 import com.pandulapeter.zilchDice.shared.presentation.navigator.Navigator
 import com.pandulapeter.zilchDice.shared.presentation.resources.api.ResourceProvider
@@ -35,11 +34,8 @@ fun Game(
         Column(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            ZilchDiceText(
-                text = resourceProvider.strings.game
-            )
             GameBoard()
             ZilchDiceButton(
                 text = resourceProvider.strings.gameReturnToMainMenu,
