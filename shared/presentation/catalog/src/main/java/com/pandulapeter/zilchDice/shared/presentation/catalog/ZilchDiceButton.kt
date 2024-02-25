@@ -71,7 +71,8 @@ fun ZilchDiceButton(
                 }
             }
             ZilchDiceText(
-                text = text
+                text = text,
+                shouldCenterAlign = true
             )
         }
     },
