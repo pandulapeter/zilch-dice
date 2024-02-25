@@ -1,6 +1,7 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation.ui
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -10,8 +11,11 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -30,21 +34,34 @@ internal fun Dice(
     diceState: DiceState,
     diceIndex: Int,
     onDiceSelected: (Int) -> Unit,
-) = AnimatedContent(
-    modifier = modifier,
-    targetState = diceState.side to diceState.imageIndex,
-    transitionSpec = { createRollContentTransform(randomGenerator) },
+) = Box(
+    modifier = modifier
 ) {
-    Card(
-        shape = CircleShape,
-        elevation = 0.dp
+    AnimatedContent(
+        targetState = diceState.side to diceState.imageIndex,
+        transitionSpec = { createRollContentTransform(randomGenerator) },
+    ) {
+        Card(
+            shape = CircleShape,
+            elevation = 0.dp
+        ) {
+            Image(
+                modifier = Modifier.clickable { onDiceSelected(diceIndex) }.alpha(if (diceState.isSaved) 0.5f else 1f),
+                painter = diceState.painter(
+                    painters = resourceProvider.painters,
+                ),
+                contentDescription = null
+            )
+        }
+    }
+    AnimatedVisibility(
+        visible = diceState.isSaved,
+        enter = fadeIn() + scaleIn(),
+        exit = scaleOut() + fadeOut()
     ) {
         Image(
-            modifier = Modifier.clickable { onDiceSelected(diceIndex) }.alpha(if (diceState.isSaved) 0.5f else 1f),
-            painter = diceState.painter(
-                painters = resourceProvider.painters,
-            ),
-            contentDescription = null,
+            imageVector = Icons.Default.Lock,
+            contentDescription = null
         )
     }
 }
@@ -60,11 +77,11 @@ private fun createRollContentTransform(
         animationSpec = tween(durationMillis = duration * 2),
         initialScale = 0.5f
     )
-    val outAnimation = fadeOut(
-        animationSpec = tween(durationMillis = duration)
-    ) + scaleOut(
+    val outAnimation = scaleOut(
         animationSpec = tween(durationMillis = duration / 2),
         targetScale = 0.5f
+    ) + fadeOut(
+        animationSpec = tween(durationMillis = duration)
     )
     return inAnimation togetherWith outAnimation
 }
