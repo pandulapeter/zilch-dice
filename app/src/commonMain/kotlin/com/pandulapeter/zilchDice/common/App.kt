@@ -1,5 +1,12 @@
 package com.pandulapeter.zilchDice.common
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,16 +36,26 @@ internal fun App(
     ZilchDiceTheme(
         resourceProvider = resourceProvider
     ) { paddingValues ->
-        when (currentDestination.value) {
-            NavigationDestination.Game -> Game(
-                modifier = modifier.padding(paddingValues)
-            )
-            NavigationDestination.MainMenu -> MainMenu(
-                modifier = modifier.padding(paddingValues)
-            )
-            NavigationDestination.Settings -> Settings(
-                modifier = modifier.padding(paddingValues)
-            )
+        AnimatedContent(
+            targetState = currentDestination.value,
+            transitionSpec = {
+                (fadeIn(animationSpec = tween(220)) + slideInVertically())
+                    .togetherWith(fadeOut(animationSpec = tween(90)) + slideOutVertically())
+            },
+        ) { navigationDestination ->
+            when (navigationDestination) {
+                NavigationDestination.Game -> Game(
+                    modifier = modifier.padding(paddingValues)
+                )
+
+                NavigationDestination.MainMenu -> MainMenu(
+                    modifier = modifier.padding(paddingValues)
+                )
+
+                NavigationDestination.Settings -> Settings(
+                    modifier = modifier.padding(paddingValues)
+                )
+            }
         }
     }
 }
