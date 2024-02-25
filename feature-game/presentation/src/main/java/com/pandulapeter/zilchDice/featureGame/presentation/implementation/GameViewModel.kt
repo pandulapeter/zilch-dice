@@ -15,6 +15,12 @@ internal class GameViewModel(
         )
     )
 
+    fun onDiceSelected(diceIndex: Int) {
+        diceStates.value = diceStates.value.mapIndexed { index, diceState ->
+            if (diceIndex == index) diceState.copy(isSaved = !diceState.isSaved) else diceState
+        }
+    }
+
     fun onRollButtonClicked() {
         diceStates.value = generateDiceStates(
             currentState = diceStates.value
@@ -76,10 +82,16 @@ internal class GameViewModel(
     }
 
     private fun generateDiceStates(currentState: List<DiceState>?) = (0..5).map { index ->
-        DiceState(
-            side = randomGenerator.diceSide(),
-            imageIndex = randomGenerator.diceImageIndex(currentState?.get(index)?.imageIndex)
-        )
+        val currentDiceState = currentState?.get(index)
+        if (currentDiceState?.isSaved == true) {
+            currentDiceState
+        } else {
+            DiceState(
+                side = randomGenerator.diceSide(),
+                imageIndex = randomGenerator.diceImageIndex(currentDiceState?.imageIndex),
+                isSaved = false
+            )
+        }
     }.also { diceStates ->
         Logger.log("Game: DiceSides: ${diceStates.joinToString { it.side.name }}")
         Logger.log("Game: DiceImageIndices: ${diceStates.joinToString { it.imageIndex.name }}")

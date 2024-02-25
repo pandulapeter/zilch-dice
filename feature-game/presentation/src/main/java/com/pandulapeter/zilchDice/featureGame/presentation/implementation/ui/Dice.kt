@@ -9,8 +9,13 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.unit.dp
 import com.pandulapeter.zilchDice.featureGame.data.DiceState
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.painter
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities.RandomGenerator
@@ -21,19 +26,27 @@ import com.pandulapeter.zilchDice.utilities.extensions.inject
 internal fun Dice(
     resourceProvider: ResourceProvider = inject(),
     randomGenerator: RandomGenerator = inject(),
-    diceState: DiceState,
     modifier: Modifier = Modifier,
+    diceState: DiceState,
+    diceIndex: Int,
+    onDiceSelected: (Int) -> Unit,
 ) = AnimatedContent(
     modifier = modifier,
-    targetState = diceState,
+    targetState = diceState.side to diceState.imageIndex,
     transitionSpec = { createRollContentTransform(randomGenerator) },
 ) {
-    Image(
-        painter = it.painter(
-            painters = resourceProvider.painters,
-        ),
-        contentDescription = null,
-    )
+    Card(
+        shape = CircleShape,
+        elevation = 0.dp
+    ) {
+        Image(
+            modifier = Modifier.clickable { onDiceSelected(diceIndex) }.alpha(if (diceState.isSaved) 0.5f else 1f),
+            painter = diceState.painter(
+                painters = resourceProvider.painters,
+            ),
+            contentDescription = null,
+        )
+    }
 }
 
 private fun createRollContentTransform(

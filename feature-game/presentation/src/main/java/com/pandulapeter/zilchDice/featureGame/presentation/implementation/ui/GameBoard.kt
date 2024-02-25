@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,7 +29,8 @@ internal fun GameBoard(
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
     DiceRow(
-        diceStates = viewModel.diceStates.value
+        diceStates = viewModel.diceStates.value,
+        onDiceSelected = viewModel::onDiceSelected
     )
     Spacer(
         modifier = Modifier.height(16.dp)
@@ -53,7 +52,8 @@ internal fun GameBoard(
 @Composable
 private fun DiceRow(
     modifier: Modifier = Modifier,
-    diceStates: List<DiceState>
+    diceStates: List<DiceState>,
+    onDiceSelected: (Int) -> Unit
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.Center
@@ -61,10 +61,12 @@ private fun DiceRow(
     Row(
         modifier = Modifier.sizeIn(maxWidth = 720.dp)
     ) {
-        diceStates.forEach { diceState ->
+        diceStates.forEachIndexed { diceIndex, diceState ->
             Dice(
                 modifier = Modifier.weight(1f),
                 diceState = diceState,
+                diceIndex = diceIndex,
+                onDiceSelected = onDiceSelected
             )
         }
     }

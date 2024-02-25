@@ -3,6 +3,7 @@ package com.pandulapeter.zilchDice.featureGame.data
 data class DiceState(
     val side: Side,
     val imageIndex: ImageIndex,
+    val isSaved: Boolean
 ) {
     enum class Side {
         ONE,
