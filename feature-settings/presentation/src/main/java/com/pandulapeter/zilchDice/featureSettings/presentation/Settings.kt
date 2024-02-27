@@ -41,7 +41,7 @@ fun Settings(
                 text = resourceProvider.strings.settings
             )
             Image(
-                painter = resourceProvider.painters.dice,
+                painter = resourceProvider.painters.die,
                 contentDescription = null
             )
             ZilchDiceButton(

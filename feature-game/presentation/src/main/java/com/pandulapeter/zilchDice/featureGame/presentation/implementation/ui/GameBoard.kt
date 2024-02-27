@@ -18,14 +18,14 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.pandulapeter.zilchDice.featureGame.data.DiceState
-import com.pandulapeter.zilchDice.featureGame.data.DiceStateWrapper
+import com.pandulapeter.zilchDice.featureGame.data.RolledDie
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.GameViewModel
 import com.pandulapeter.zilchDice.shared.presentation.catalog.ZilchDiceButton
 import com.pandulapeter.zilchDice.shared.presentation.resources.api.ResourceProvider
@@ -42,13 +42,14 @@ internal fun GameBoard(
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(16.dp)
 ) {
-    val diceStates = viewModel.diceStateWrappers.collectAsState()
+    val savedDice = viewModel.savedDice.collectAsState(emptyList())
     SavedDiceRow(
-        diceStates = diceStates.value.map { it.diceState }
+        savedDice = savedDice.value
     )
+    val rollState = viewModel.rollState.collectAsState()
     DiceRow(
-        diceStateWrappers = diceStates.value,
-        onDiceSelected = viewModel::onDiceSelected
+        rolledDice = rollState.value,
+        onDieSelected = viewModel::onDiceSelected
     )
     val rollValue = viewModel.rollValue.collectAsState(0)
     Text(
@@ -69,24 +70,29 @@ internal fun GameBoard(
 @Composable
 private fun DiceRow(
     modifier: Modifier = Modifier,
-    diceStateWrappers: List<DiceStateWrapper>,
-    onDiceSelected: (String) -> Unit
+    rolledDice: List<RolledDie>,
+    onDieSelected: (Int) -> Unit
 ) = Row(
     modifier = modifier.fillMaxWidth(),
     horizontalArrangement = Arrangement.Center
 ) {
     LazyVerticalGrid(
         modifier = Modifier.sizeIn(maxWidth = 720.dp),
-        columns = GridCells.Fixed(diceStateWrappers.size),
+        columns = GridCells.Fixed(rolledDice.size),
     ) {
         items(
-            count = diceStateWrappers.size,
-            key = { diceStateWrappers[it].id }
+            count = rolledDice.size,
+            key = { rolledDice[it].id }
         ) {
-            Dice(
-                modifier = Modifier.animateItemPlacement(),
-                diceStateWrapper = diceStateWrappers[it],
-                onDiceSelected = onDiceSelected
+            Die(
+                modifier = Modifier.animateItemPlacement(
+                    animationSpec = tween(
+                        durationMillis = 200,
+                        easing = Ease,
+                    )
+                ),
+                rolledDie = rolledDice[it],
+                onDiceSelected = onDieSelected
             )
         }
     }
@@ -96,7 +102,7 @@ private fun DiceRow(
 @Composable
 private fun SavedDiceRow(
     modifier: Modifier = Modifier.fillMaxWidth(),
-    diceStates: List<DiceState>,
+    savedDice: List<RolledDie>,
 ) = Box(
     modifier = modifier
         .fillMaxWidth()
@@ -104,7 +110,7 @@ private fun SavedDiceRow(
 ) {
     AnimatedVisibility(
         modifier = Modifier.fillMaxWidth(),
-        visible = diceStates.any { it.isSaved },
+        visible = savedDice.any { it.isSaved },
         enter = fadeIn() + scaleIn(),
         exit = scaleOut() + fadeOut()
     ) {
@@ -112,23 +118,20 @@ private fun SavedDiceRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            diceStates
-                .sortedBy { it.side }
-                .forEachIndexed { index, diceState ->
-                    if (diceState.isSaved) {
-                        item(key = index) {
-                            DiceTop(
-                                modifier = Modifier.animateItemPlacement(
-                                    animationSpec = tween(
-                                        durationMillis = 200,
-                                        easing = Ease,
-                                    )
-                                ),
-                                diceState = diceState
-                            )
-                        }
-                    }
-                }
+            items(
+                items = savedDice,
+                key = { it.id }
+            ) { rolledDie ->
+                DieTop(
+                    modifier = Modifier.animateItemPlacement(
+                        animationSpec = tween(
+                            durationMillis = 200,
+                            easing = Ease,
+                        )
+                    ),
+                    rolledDie = rolledDie
+                )
+            }
         }
     }
 }

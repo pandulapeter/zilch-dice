@@ -1,6 +1,6 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities
 
-import com.pandulapeter.zilchDice.featureGame.data.DiceState
+import com.pandulapeter.zilchDice.featureGame.data.RolledDie
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.mirror
 import kotlin.math.roundToInt
 import kotlin.random.Random
@@ -15,12 +15,12 @@ internal class RandomGenerator {
 
     fun intBetween(minimum: Int, maximum: Int) = minimum + intBelow(maximum)
 
-    fun diceSide() = DiceState.Side.entries.random()
+    fun diceSide() = RolledDie.Side.entries.random()
 
-    fun diceImageIndex(currentValue: DiceState.ImageIndex?): DiceState.ImageIndex {
-        var nextValue: DiceState.ImageIndex
+    fun diceImageIndex(currentValue: RolledDie.ImageIndex?): RolledDie.ImageIndex {
+        var nextValue: RolledDie.ImageIndex
         do {
-            nextValue = DiceState.ImageIndex.entries.random()
+            nextValue = RolledDie.ImageIndex.entries.random()
         } while (nextValue == currentValue?.mirror || nextValue == currentValue)
         return nextValue
     }

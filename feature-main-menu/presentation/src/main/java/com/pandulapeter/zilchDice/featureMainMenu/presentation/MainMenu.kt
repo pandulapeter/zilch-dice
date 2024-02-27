@@ -41,7 +41,7 @@ fun MainMenu(
                 text = resourceProvider.strings.mainMenu
             )
             Image(
-                painter = resourceProvider.painters.dice,
+                painter = resourceProvider.painters.die,
                 contentDescription = null
             )
             ZilchDiceButton(

@@ -1,6 +1,7 @@
 package com.pandulapeter.zilchDice.featureGame.data
 
-data class DiceState(
+data class RolledDie(
+    val id: Int,
     val side: Side,
     val imageIndex: ImageIndex,
     val isSaved: Boolean

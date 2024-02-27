@@ -1,7 +1,6 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation
 
-import com.pandulapeter.zilchDice.featureGame.data.DiceState
-import com.pandulapeter.zilchDice.featureGame.data.DiceStateWrapper
+import com.pandulapeter.zilchDice.featureGame.data.RolledDie
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities.RandomGenerator
 import com.pandulapeter.zilchDice.utilities.logger.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,51 +11,54 @@ internal class GameViewModel(
     private val randomGenerator: RandomGenerator
 ) {
 
-    private val _diceStateWrappers = MutableStateFlow(
-        generateDiceStates(
+    private val _rollState = MutableStateFlow(
+        generateRollState(
             currentState = null
         )
     )
-    val diceStateWrappers = _diceStateWrappers.asStateFlow()
-    val isRollButtonEnabled = _diceStateWrappers.map { diceStates ->
-        diceStates.any { !it.diceState.isSaved }
+    val rollState = _rollState.asStateFlow()
+    val savedDice = rollState.map { rollState ->
+        rollState.filter { rolledDie ->
+            rolledDie.isSaved
+        }
     }
-    val rollValue = diceStateWrappers.map { diceStateWrappers ->
-        countPoints(diceStateWrappers.map { it.diceState.side })
+    val isRollButtonEnabled = _rollState.map { diceStates ->
+        diceStates.any { !it.isSaved }
+    }
+    val rollValue = rollState.map { diceStateWrappers ->
+        countPoints(diceStateWrappers.map { it.side })
     }
 
-    fun onDiceSelected(id: String) {
-        _diceStateWrappers.value = diceStateWrappers.value.map { diceStateWrapper ->
-            if (diceStateWrapper.id == id) {
-                diceStateWrapper.copy(
-                    diceState = diceStateWrapper.diceState.copy(
-                        isSaved = !diceStateWrapper.diceState.isSaved
-                    )
+    fun onDiceSelected(id: Int) {
+        _rollState.value = rollState.value.map { rolledDie ->
+            if (rolledDie.id == id) {
+                rolledDie.copy(
+                    isSaved = !rolledDie.isSaved
                 )
             } else {
-                diceStateWrapper
+                rolledDie
             }
         }
     }
 
     fun onRollButtonClicked() {
-        _diceStateWrappers.value = generateDiceStates(
-            currentState = diceStateWrappers.value
+        _rollState.value = generateRollState(
+            currentState = rollState.value
         )
     }
 
     fun reset() {
-        _diceStateWrappers.value = generateDiceStates(
+        _rollState.value = generateRollState(
             currentState = null
         )
     }
 
-    private fun countPoints(diceSides: List<DiceState.Side>) = diceSides.run {
-        if (diceSides.sorted() == DiceState.Side.entries.sorted()) {
+    private fun countPoints(diceSides: List<RolledDie.Side>) = diceSides.run {
+        if (diceSides.sorted() == RolledDie.Side.entries.sorted()) {
             return@run 2500
         }
         var sum = 0
-        sum += when (count { it == DiceState.Side.ONE }) {
+        sum += when (count { it == RolledDie.Side.ONE }) {
             1 -> 100
             2 -> 200
             3 -> 1000
@@ -65,28 +67,28 @@ internal class GameViewModel(
             6 -> 8000
             else -> 0
         }
-        sum += when (count { it == DiceState.Side.TWO }) {
+        sum += when (count { it == RolledDie.Side.TWO }) {
             3 -> 200
             4 -> 400
             5 -> 800
             6 -> 1600
             else -> 0
         }
-        sum += when (count { it == DiceState.Side.THREE }) {
+        sum += when (count { it == RolledDie.Side.THREE }) {
             3 -> 300
             4 -> 600
             5 -> 1200
             6 -> 2400
             else -> 0
         }
-        sum += when (count { it == DiceState.Side.FOUR }) {
+        sum += when (count { it == RolledDie.Side.FOUR }) {
             3 -> 400
             4 -> 800
             5 -> 1600
             6 -> 3200
             else -> 0
         }
-        sum += when (count { it == DiceState.Side.FIVE }) {
+        sum += when (count { it == RolledDie.Side.FIVE }) {
             1 -> 50
             2 -> 100
             3 -> 500
@@ -95,7 +97,7 @@ internal class GameViewModel(
             6 -> 4000
             else -> 0
         }
-        sum += when (count { it == DiceState.Side.SIX }) {
+        sum += when (count { it == RolledDie.Side.SIX }) {
             3 -> 600
             4 -> 1200
             5 -> 2400
@@ -105,24 +107,22 @@ internal class GameViewModel(
         return@run sum
     }
 
-    private fun generateDiceStates(currentState: List<DiceStateWrapper>?) = (0..5).map { index ->
-        val currentDiceStateWrapper = currentState?.get(index)
-        if (currentDiceStateWrapper?.diceState?.isSaved == true) {
-            currentDiceStateWrapper
+    private fun generateRollState(currentState: List<RolledDie>?) = (0..5).map { index ->
+        val currentRolledDie = currentState?.get(index)
+        if (currentRolledDie?.isSaved == true) {
+            currentRolledDie
         } else {
-            DiceStateWrapper(
-                id = currentDiceStateWrapper?.id ?: index.toString(),
-                diceState = DiceState(
-                    side = randomGenerator.diceSide(),
-                    imageIndex = randomGenerator.diceImageIndex(currentDiceStateWrapper?.diceState?.imageIndex),
-                    isSaved = false
-                )
+            RolledDie(
+                id = currentRolledDie?.id ?: index,
+                side = randomGenerator.diceSide(),
+                imageIndex = randomGenerator.diceImageIndex(currentRolledDie?.imageIndex),
+                isSaved = false
             )
         }
     }
-        .sortedBy { it.diceState.side }
+        .sortedBy { it.side }
         .also { diceStates ->
-            Logger.log("Game: DiceSides: ${diceStates.joinToString { it.diceState.side.name }}")
-            Logger.log("Game: DiceImageIndices: ${diceStates.joinToString { it.diceState.imageIndex.name }}")
+            Logger.log("Game: DiceSides: ${diceStates.joinToString { it.side.name }}")
+            Logger.log("Game: DiceImageIndices: ${diceStates.joinToString { it.imageIndex.name }}")
         }
 }

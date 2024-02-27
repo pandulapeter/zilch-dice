@@ -24,8 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
-import com.pandulapeter.zilchDice.featureGame.data.DiceState
-import com.pandulapeter.zilchDice.featureGame.data.DiceStateWrapper
+import com.pandulapeter.zilchDice.featureGame.data.RolledDie
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.painter
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.topPainter
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities.RandomGenerator
@@ -33,17 +32,17 @@ import com.pandulapeter.zilchDice.shared.presentation.resources.api.ResourceProv
 import com.pandulapeter.zilchDice.utilities.extensions.inject
 
 @Composable
-internal fun Dice(
+internal fun Die(
     resourceProvider: ResourceProvider = inject(),
     randomGenerator: RandomGenerator = inject(),
     modifier: Modifier = Modifier,
-    diceStateWrapper: DiceStateWrapper,
-    onDiceSelected: (String) -> Unit,
+    rolledDie: RolledDie,
+    onDiceSelected: (Int) -> Unit,
 ) = Box(
     modifier = modifier
 ) {
     AnimatedContent(
-        targetState = diceStateWrapper.diceState.side to diceStateWrapper.diceState.imageIndex,
+        targetState = rolledDie.side to rolledDie.imageIndex,
         transitionSpec = { createRollContentTransform(randomGenerator) },
     ) {
         Card(
@@ -51,8 +50,8 @@ internal fun Dice(
             elevation = 0.dp
         ) {
             Image(
-                modifier = Modifier.clickable { onDiceSelected(diceStateWrapper.id) }.alpha(if (diceStateWrapper.diceState.isSaved) 0.5f else 1f),
-                painter = diceStateWrapper.diceState.painter(
+                modifier = Modifier.clickable { onDiceSelected(rolledDie.id) }.alpha(if (rolledDie.isSaved) 0.5f else 1f),
+                painter = rolledDie.painter(
                     painters = resourceProvider.painters,
                 ),
                 contentDescription = null
@@ -60,7 +59,7 @@ internal fun Dice(
         }
     }
     AnimatedVisibility(
-        visible = diceStateWrapper.diceState.isSaved,
+        visible = rolledDie.isSaved,
         enter = fadeIn() + scaleIn(),
         exit = scaleOut() + fadeOut()
     ) {
@@ -73,15 +72,18 @@ internal fun Dice(
 }
 
 @Composable
-internal fun DiceTop(
+internal fun DieTop(
     resourceProvider: ResourceProvider = inject(),
     modifier: Modifier = Modifier,
-    diceState: DiceState
+    rolledDie: RolledDie
 ) = Image(
     modifier = modifier
-        .sizeIn(maxWidth = 48.dp)
+        .sizeIn(
+            maxWidth = 48.dp,
+            maxHeight = 48.dp
+        )
         .padding(4.dp),
-    painter = diceState.topPainter(
+    painter = rolledDie.topPainter(
         painters = resourceProvider.painters,
     ),
     contentDescription = null

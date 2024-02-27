@@ -1,114 +1,114 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation
 
 import androidx.compose.runtime.Composable
-import com.pandulapeter.zilchDice.featureGame.data.DiceState
+import com.pandulapeter.zilchDice.featureGame.data.RolledDie
 import com.pandulapeter.zilchDice.shared.presentation.resources.api.types.Painters
 
 @Composable
-internal fun DiceState.painter(
+internal fun RolledDie.painter(
     painters: Painters,
 ) = when (side) {
-    DiceState.Side.ONE -> when (imageIndex) {
-        DiceState.ImageIndex.INDEX_0 -> painters.dice_1_0
-        DiceState.ImageIndex.INDEX_1 -> painters.dice_1_1
-        DiceState.ImageIndex.INDEX_2 -> painters.dice_1_2
-        DiceState.ImageIndex.INDEX_3 -> painters.dice_1_3
-        DiceState.ImageIndex.INDEX_4 -> painters.dice_1_4
-        DiceState.ImageIndex.INDEX_5 -> painters.dice_1_5
-        DiceState.ImageIndex.INDEX_6 -> painters.dice_1_6
-        DiceState.ImageIndex.INDEX_7 -> painters.dice_1_7
-        DiceState.ImageIndex.INDEX_8 -> painters.dice_1_8
-        DiceState.ImageIndex.INDEX_9 -> painters.dice_1_9
+    RolledDie.Side.ONE -> when (imageIndex) {
+        RolledDie.ImageIndex.INDEX_0 -> painters.die_1_0
+        RolledDie.ImageIndex.INDEX_1 -> painters.die_1_1
+        RolledDie.ImageIndex.INDEX_2 -> painters.die_1_2
+        RolledDie.ImageIndex.INDEX_3 -> painters.die_1_3
+        RolledDie.ImageIndex.INDEX_4 -> painters.die_1_4
+        RolledDie.ImageIndex.INDEX_5 -> painters.die_1_5
+        RolledDie.ImageIndex.INDEX_6 -> painters.die_1_6
+        RolledDie.ImageIndex.INDEX_7 -> painters.die_1_7
+        RolledDie.ImageIndex.INDEX_8 -> painters.die_1_8
+        RolledDie.ImageIndex.INDEX_9 -> painters.die_1_9
     }
 
-    DiceState.Side.TWO -> when (imageIndex) {
-        DiceState.ImageIndex.INDEX_0 -> painters.dice_2_0
-        DiceState.ImageIndex.INDEX_1 -> painters.dice_2_1
-        DiceState.ImageIndex.INDEX_2 -> painters.dice_2_2
-        DiceState.ImageIndex.INDEX_3 -> painters.dice_2_3
-        DiceState.ImageIndex.INDEX_4 -> painters.dice_2_4
-        DiceState.ImageIndex.INDEX_5 -> painters.dice_2_5
-        DiceState.ImageIndex.INDEX_6 -> painters.dice_2_6
-        DiceState.ImageIndex.INDEX_7 -> painters.dice_2_7
-        DiceState.ImageIndex.INDEX_8 -> painters.dice_2_8
-        DiceState.ImageIndex.INDEX_9 -> painters.dice_2_9
+    RolledDie.Side.TWO -> when (imageIndex) {
+        RolledDie.ImageIndex.INDEX_0 -> painters.die_2_0
+        RolledDie.ImageIndex.INDEX_1 -> painters.die_2_1
+        RolledDie.ImageIndex.INDEX_2 -> painters.die_2_2
+        RolledDie.ImageIndex.INDEX_3 -> painters.die_2_3
+        RolledDie.ImageIndex.INDEX_4 -> painters.die_2_4
+        RolledDie.ImageIndex.INDEX_5 -> painters.die_2_5
+        RolledDie.ImageIndex.INDEX_6 -> painters.die_2_6
+        RolledDie.ImageIndex.INDEX_7 -> painters.die_2_7
+        RolledDie.ImageIndex.INDEX_8 -> painters.die_2_8
+        RolledDie.ImageIndex.INDEX_9 -> painters.die_2_9
     }
 
-    DiceState.Side.THREE -> when (imageIndex) {
-        DiceState.ImageIndex.INDEX_0 -> painters.dice_3_0
-        DiceState.ImageIndex.INDEX_1 -> painters.dice_3_1
-        DiceState.ImageIndex.INDEX_2 -> painters.dice_3_2
-        DiceState.ImageIndex.INDEX_3 -> painters.dice_3_3
-        DiceState.ImageIndex.INDEX_4 -> painters.dice_3_4
-        DiceState.ImageIndex.INDEX_5 -> painters.dice_3_5
-        DiceState.ImageIndex.INDEX_6 -> painters.dice_3_6
-        DiceState.ImageIndex.INDEX_7 -> painters.dice_3_7
-        DiceState.ImageIndex.INDEX_8 -> painters.dice_3_8
-        DiceState.ImageIndex.INDEX_9 -> painters.dice_3_9
+    RolledDie.Side.THREE -> when (imageIndex) {
+        RolledDie.ImageIndex.INDEX_0 -> painters.die_3_0
+        RolledDie.ImageIndex.INDEX_1 -> painters.die_3_1
+        RolledDie.ImageIndex.INDEX_2 -> painters.die_3_2
+        RolledDie.ImageIndex.INDEX_3 -> painters.die_3_3
+        RolledDie.ImageIndex.INDEX_4 -> painters.die_3_4
+        RolledDie.ImageIndex.INDEX_5 -> painters.die_3_5
+        RolledDie.ImageIndex.INDEX_6 -> painters.die_3_6
+        RolledDie.ImageIndex.INDEX_7 -> painters.die_3_7
+        RolledDie.ImageIndex.INDEX_8 -> painters.die_3_8
+        RolledDie.ImageIndex.INDEX_9 -> painters.die_3_9
     }
 
-    DiceState.Side.FOUR -> when (imageIndex) {
-        DiceState.ImageIndex.INDEX_0 -> painters.dice_4_0
-        DiceState.ImageIndex.INDEX_1 -> painters.dice_4_1
-        DiceState.ImageIndex.INDEX_2 -> painters.dice_4_2
-        DiceState.ImageIndex.INDEX_3 -> painters.dice_4_3
-        DiceState.ImageIndex.INDEX_4 -> painters.dice_4_4
-        DiceState.ImageIndex.INDEX_5 -> painters.dice_4_5
-        DiceState.ImageIndex.INDEX_6 -> painters.dice_4_6
-        DiceState.ImageIndex.INDEX_7 -> painters.dice_4_7
-        DiceState.ImageIndex.INDEX_8 -> painters.dice_4_8
-        DiceState.ImageIndex.INDEX_9 -> painters.dice_4_9
+    RolledDie.Side.FOUR -> when (imageIndex) {
+        RolledDie.ImageIndex.INDEX_0 -> painters.die_4_0
+        RolledDie.ImageIndex.INDEX_1 -> painters.die_4_1
+        RolledDie.ImageIndex.INDEX_2 -> painters.die_4_2
+        RolledDie.ImageIndex.INDEX_3 -> painters.die_4_3
+        RolledDie.ImageIndex.INDEX_4 -> painters.die_4_4
+        RolledDie.ImageIndex.INDEX_5 -> painters.die_4_5
+        RolledDie.ImageIndex.INDEX_6 -> painters.die_4_6
+        RolledDie.ImageIndex.INDEX_7 -> painters.die_4_7
+        RolledDie.ImageIndex.INDEX_8 -> painters.die_4_8
+        RolledDie.ImageIndex.INDEX_9 -> painters.die_4_9
     }
 
-    DiceState.Side.FIVE -> when (imageIndex) {
-        DiceState.ImageIndex.INDEX_0 -> painters.dice_5_0
-        DiceState.ImageIndex.INDEX_1 -> painters.dice_5_1
-        DiceState.ImageIndex.INDEX_2 -> painters.dice_5_2
-        DiceState.ImageIndex.INDEX_3 -> painters.dice_5_3
-        DiceState.ImageIndex.INDEX_4 -> painters.dice_5_4
-        DiceState.ImageIndex.INDEX_5 -> painters.dice_5_5
-        DiceState.ImageIndex.INDEX_6 -> painters.dice_5_6
-        DiceState.ImageIndex.INDEX_7 -> painters.dice_5_7
-        DiceState.ImageIndex.INDEX_8 -> painters.dice_5_8
-        DiceState.ImageIndex.INDEX_9 -> painters.dice_5_9
+    RolledDie.Side.FIVE -> when (imageIndex) {
+        RolledDie.ImageIndex.INDEX_0 -> painters.die_5_0
+        RolledDie.ImageIndex.INDEX_1 -> painters.die_5_1
+        RolledDie.ImageIndex.INDEX_2 -> painters.die_5_2
+        RolledDie.ImageIndex.INDEX_3 -> painters.die_5_3
+        RolledDie.ImageIndex.INDEX_4 -> painters.die_5_4
+        RolledDie.ImageIndex.INDEX_5 -> painters.die_5_5
+        RolledDie.ImageIndex.INDEX_6 -> painters.die_5_6
+        RolledDie.ImageIndex.INDEX_7 -> painters.die_5_7
+        RolledDie.ImageIndex.INDEX_8 -> painters.die_5_8
+        RolledDie.ImageIndex.INDEX_9 -> painters.die_5_9
     }
 
-    DiceState.Side.SIX -> when (imageIndex) {
-        DiceState.ImageIndex.INDEX_0 -> painters.dice_6_0
-        DiceState.ImageIndex.INDEX_1 -> painters.dice_6_1
-        DiceState.ImageIndex.INDEX_2 -> painters.dice_6_2
-        DiceState.ImageIndex.INDEX_3 -> painters.dice_6_3
-        DiceState.ImageIndex.INDEX_4 -> painters.dice_6_4
-        DiceState.ImageIndex.INDEX_5 -> painters.dice_6_5
-        DiceState.ImageIndex.INDEX_6 -> painters.dice_6_6
-        DiceState.ImageIndex.INDEX_7 -> painters.dice_6_7
-        DiceState.ImageIndex.INDEX_8 -> painters.dice_6_8
-        DiceState.ImageIndex.INDEX_9 -> painters.dice_6_9
+    RolledDie.Side.SIX -> when (imageIndex) {
+        RolledDie.ImageIndex.INDEX_0 -> painters.die_6_0
+        RolledDie.ImageIndex.INDEX_1 -> painters.die_6_1
+        RolledDie.ImageIndex.INDEX_2 -> painters.die_6_2
+        RolledDie.ImageIndex.INDEX_3 -> painters.die_6_3
+        RolledDie.ImageIndex.INDEX_4 -> painters.die_6_4
+        RolledDie.ImageIndex.INDEX_5 -> painters.die_6_5
+        RolledDie.ImageIndex.INDEX_6 -> painters.die_6_6
+        RolledDie.ImageIndex.INDEX_7 -> painters.die_6_7
+        RolledDie.ImageIndex.INDEX_8 -> painters.die_6_8
+        RolledDie.ImageIndex.INDEX_9 -> painters.die_6_9
     }
 }
 
 @Composable
-internal fun DiceState.topPainter(
+internal fun RolledDie.topPainter(
     painters: Painters,
 ) = when (side) {
-    DiceState.Side.ONE -> painters.dice_1_top
-    DiceState.Side.TWO -> painters.dice_2_top
-    DiceState.Side.THREE -> painters.dice_3_top
-    DiceState.Side.FOUR -> painters.dice_4_top
-    DiceState.Side.FIVE -> painters.dice_5_top
-    DiceState.Side.SIX -> painters.dice_6_top
+    RolledDie.Side.ONE -> painters.die_1_top
+    RolledDie.Side.TWO -> painters.die_2_top
+    RolledDie.Side.THREE -> painters.die_3_top
+    RolledDie.Side.FOUR -> painters.die_4_top
+    RolledDie.Side.FIVE -> painters.die_5_top
+    RolledDie.Side.SIX -> painters.die_6_top
 }
 
-internal val DiceState.ImageIndex.mirror
+internal val RolledDie.ImageIndex.mirror
     get() = when (this) {
-        DiceState.ImageIndex.INDEX_0 -> DiceState.ImageIndex.INDEX_5
-        DiceState.ImageIndex.INDEX_1 -> DiceState.ImageIndex.INDEX_6
-        DiceState.ImageIndex.INDEX_2 -> DiceState.ImageIndex.INDEX_7
-        DiceState.ImageIndex.INDEX_3 -> DiceState.ImageIndex.INDEX_8
-        DiceState.ImageIndex.INDEX_4 -> DiceState.ImageIndex.INDEX_9
-        DiceState.ImageIndex.INDEX_5 -> DiceState.ImageIndex.INDEX_0
-        DiceState.ImageIndex.INDEX_6 -> DiceState.ImageIndex.INDEX_1
-        DiceState.ImageIndex.INDEX_7 -> DiceState.ImageIndex.INDEX_2
-        DiceState.ImageIndex.INDEX_8 -> DiceState.ImageIndex.INDEX_3
-        DiceState.ImageIndex.INDEX_9 -> DiceState.ImageIndex.INDEX_4
+        RolledDie.ImageIndex.INDEX_0 -> RolledDie.ImageIndex.INDEX_5
+        RolledDie.ImageIndex.INDEX_1 -> RolledDie.ImageIndex.INDEX_6
+        RolledDie.ImageIndex.INDEX_2 -> RolledDie.ImageIndex.INDEX_7
+        RolledDie.ImageIndex.INDEX_3 -> RolledDie.ImageIndex.INDEX_8
+        RolledDie.ImageIndex.INDEX_4 -> RolledDie.ImageIndex.INDEX_9
+        RolledDie.ImageIndex.INDEX_5 -> RolledDie.ImageIndex.INDEX_0
+        RolledDie.ImageIndex.INDEX_6 -> RolledDie.ImageIndex.INDEX_1
+        RolledDie.ImageIndex.INDEX_7 -> RolledDie.ImageIndex.INDEX_2
+        RolledDie.ImageIndex.INDEX_8 -> RolledDie.ImageIndex.INDEX_3
+        RolledDie.ImageIndex.INDEX_9 -> RolledDie.ImageIndex.INDEX_4
     }
