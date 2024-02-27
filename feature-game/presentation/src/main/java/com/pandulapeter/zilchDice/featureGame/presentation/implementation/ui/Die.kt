@@ -72,7 +72,7 @@ internal fun Die(
 }
 
 @Composable
-internal fun DieTop(
+internal fun SavedDie(
     resourceProvider: ResourceProvider = inject(),
     modifier: Modifier = Modifier,
     rolledDie: RolledDie
