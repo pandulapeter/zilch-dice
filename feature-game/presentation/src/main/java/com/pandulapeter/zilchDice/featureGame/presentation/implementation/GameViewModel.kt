@@ -1,6 +1,7 @@
 package com.pandulapeter.zilchDice.featureGame.presentation.implementation
 
 import com.pandulapeter.zilchDice.featureGame.data.DiceState
+import com.pandulapeter.zilchDice.featureGame.data.DiceStateWrapper
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities.RandomGenerator
 import com.pandulapeter.zilchDice.utilities.logger.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,33 +12,41 @@ internal class GameViewModel(
     private val randomGenerator: RandomGenerator
 ) {
 
-    private val _diceStates = MutableStateFlow(
+    private val _diceStateWrappers = MutableStateFlow(
         generateDiceStates(
             currentState = null
         )
     )
-    val diceStates = _diceStates.asStateFlow()
-    val isRollButtonEnabled = _diceStates.map { diceStates ->
-        diceStates.any { !it.isSaved }
+    val diceStateWrappers = _diceStateWrappers.asStateFlow()
+    val isRollButtonEnabled = _diceStateWrappers.map { diceStates ->
+        diceStates.any { !it.diceState.isSaved }
     }
-    val rollValue = diceStates.map { diceStates ->
-        countPoints(diceStates.map { dice -> dice.side })
+    val rollValue = diceStateWrappers.map { diceStateWrappers ->
+        countPoints(diceStateWrappers.map { it.diceState.side })
     }
 
-    fun onDiceSelected(diceIndex: Int) {
-        _diceStates.value = diceStates.value.mapIndexed { index, diceState ->
-            if (diceIndex == index) diceState.copy(isSaved = !diceState.isSaved) else diceState
+    fun onDiceSelected(id: String) {
+        _diceStateWrappers.value = diceStateWrappers.value.map { diceStateWrapper ->
+            if (diceStateWrapper.id == id) {
+                diceStateWrapper.copy(
+                    diceState = diceStateWrapper.diceState.copy(
+                        isSaved = !diceStateWrapper.diceState.isSaved
+                    )
+                )
+            } else {
+                diceStateWrapper
+            }
         }
     }
 
     fun onRollButtonClicked() {
-        _diceStates.value = generateDiceStates(
-            currentState = diceStates.value
+        _diceStateWrappers.value = generateDiceStates(
+            currentState = diceStateWrappers.value
         )
     }
 
     fun reset() {
-        _diceStates.value = generateDiceStates(
+        _diceStateWrappers.value = generateDiceStates(
             currentState = null
         )
     }
@@ -96,19 +105,24 @@ internal class GameViewModel(
         return@run sum
     }
 
-    private fun generateDiceStates(currentState: List<DiceState>?) = (0..5).map { index ->
-        val currentDiceState = currentState?.get(index)
-        if (currentDiceState?.isSaved == true) {
-            currentDiceState
+    private fun generateDiceStates(currentState: List<DiceStateWrapper>?) = (0..5).map { index ->
+        val currentDiceStateWrapper = currentState?.get(index)
+        if (currentDiceStateWrapper?.diceState?.isSaved == true) {
+            currentDiceStateWrapper
         } else {
-            DiceState(
-                side = randomGenerator.diceSide(),
-                imageIndex = randomGenerator.diceImageIndex(currentDiceState?.imageIndex),
-                isSaved = false
+            DiceStateWrapper(
+                id = currentDiceStateWrapper?.id ?: index.toString(),
+                diceState = DiceState(
+                    side = randomGenerator.diceSide(),
+                    imageIndex = randomGenerator.diceImageIndex(currentDiceStateWrapper?.diceState?.imageIndex),
+                    isSaved = false
+                )
             )
         }
-    }.also { diceStates ->
-        Logger.log("Game: DiceSides: ${diceStates.joinToString { it.side.name }}")
-        Logger.log("Game: DiceImageIndices: ${diceStates.joinToString { it.imageIndex.name }}")
     }
+        .sortedBy { it.diceState.side }
+        .also { diceStates ->
+            Logger.log("Game: DiceSides: ${diceStates.joinToString { it.diceState.side.name }}")
+            Logger.log("Game: DiceImageIndices: ${diceStates.joinToString { it.diceState.imageIndex.name }}")
+        }
 }

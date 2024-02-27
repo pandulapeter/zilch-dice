@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import com.pandulapeter.zilchDice.featureGame.data.DiceState
+import com.pandulapeter.zilchDice.featureGame.data.DiceStateWrapper
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.painter
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.topPainter
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.utilities.RandomGenerator
@@ -36,14 +37,13 @@ internal fun Dice(
     resourceProvider: ResourceProvider = inject(),
     randomGenerator: RandomGenerator = inject(),
     modifier: Modifier = Modifier,
-    diceState: DiceState,
-    diceIndex: Int,
-    onDiceSelected: (Int) -> Unit,
+    diceStateWrapper: DiceStateWrapper,
+    onDiceSelected: (String) -> Unit,
 ) = Box(
     modifier = modifier
 ) {
     AnimatedContent(
-        targetState = diceState.side to diceState.imageIndex,
+        targetState = diceStateWrapper.diceState.side to diceStateWrapper.diceState.imageIndex,
         transitionSpec = { createRollContentTransform(randomGenerator) },
     ) {
         Card(
@@ -51,8 +51,8 @@ internal fun Dice(
             elevation = 0.dp
         ) {
             Image(
-                modifier = Modifier.clickable { onDiceSelected(diceIndex) }.alpha(if (diceState.isSaved) 0.5f else 1f),
-                painter = diceState.painter(
+                modifier = Modifier.clickable { onDiceSelected(diceStateWrapper.id) }.alpha(if (diceStateWrapper.diceState.isSaved) 0.5f else 1f),
+                painter = diceStateWrapper.diceState.painter(
                     painters = resourceProvider.painters,
                 ),
                 contentDescription = null
@@ -60,7 +60,7 @@ internal fun Dice(
         }
     }
     AnimatedVisibility(
-        visible = diceState.isSaved,
+        visible = diceStateWrapper.diceState.isSaved,
         enter = fadeIn() + scaleIn(),
         exit = scaleOut() + fadeOut()
     ) {

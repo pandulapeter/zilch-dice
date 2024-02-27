@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.pandulapeter.zilchDice.featureGame.data.DiceState
+import com.pandulapeter.zilchDice.featureGame.data.DiceStateWrapper
 import com.pandulapeter.zilchDice.featureGame.presentation.implementation.GameViewModel
 import com.pandulapeter.zilchDice.shared.presentation.catalog.ZilchDiceButton
 import com.pandulapeter.zilchDice.shared.presentation.resources.api.ResourceProvider
@@ -39,12 +42,12 @@ internal fun GameBoard(
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(16.dp)
 ) {
-    val diceStates = viewModel.diceStates.collectAsState()
+    val diceStates = viewModel.diceStateWrappers.collectAsState()
     SavedDiceRow(
-        diceStates = diceStates.value
+        diceStates = diceStates.value.map { it.diceState }
     )
     DiceRow(
-        diceStates = diceStates.value,
+        diceStateWrappers = diceStates.value,
         onDiceSelected = viewModel::onDiceSelected
     )
     val rollValue = viewModel.rollValue.collectAsState(0)
@@ -62,23 +65,27 @@ internal fun GameBoard(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun DiceRow(
     modifier: Modifier = Modifier,
-    diceStates: List<DiceState>,
-    onDiceSelected: (Int) -> Unit
+    diceStateWrappers: List<DiceStateWrapper>,
+    onDiceSelected: (String) -> Unit
 ) = Row(
-    modifier = modifier,
+    modifier = modifier.fillMaxWidth(),
     horizontalArrangement = Arrangement.Center
 ) {
-    Row(
-        modifier = Modifier.sizeIn(maxWidth = 720.dp)
+    LazyVerticalGrid(
+        modifier = Modifier.sizeIn(maxWidth = 720.dp),
+        columns = GridCells.Fixed(diceStateWrappers.size),
     ) {
-        diceStates.forEachIndexed { diceIndex, diceState ->
+        items(
+            count = diceStateWrappers.size,
+            key = { diceStateWrappers[it].id }
+        ) {
             Dice(
-                modifier = Modifier.weight(1f),
-                diceState = diceState,
-                diceIndex = diceIndex,
+                modifier = Modifier.animateItemPlacement(),
+                diceStateWrapper = diceStateWrappers[it],
                 onDiceSelected = onDiceSelected
             )
         }
